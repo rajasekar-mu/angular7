@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+    <h2>Product List</h2>
+    <div class="col-sm-8">
+      <div class="form-group pull-right">
+        <input type="text" class="form-control" id="search_data" placeholder="search" name="search_data" (keyup)="applyFilter($event.target.value)">
+      </div>
+      <br>
+      <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let product of shopes">
+      <tr>
+        <td>{{product.username}}</td>
+        <td>{{product.status}}</td>
+        <td>{{product.created_date | date:'medium' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+    </div>
+    <div class="col-sm-4">
+      <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input name="username" #username="ngModel" [(ngModel)]="formData.username" placeholder="name" class="form-control" required>
+          <div class="validation-error" *ngIf="username.invalid && username.touched">This field is required.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="shop_name">Shop Name:</label>
+          <input name="shop_name" #shop_name="ngModel" [(ngModel)]="formData.shop_name" placeholder="shop name" class="form-control" required>
+          <div class="validation-error" *ngIf="shop_name.invalid && shop_name.touched">This field is required.</div>
+        </div>
+        <div class="form-group">
+          <label for="status">Status:</label>
+          <!-- <textarea class="form-control" rows="5" id="status"></textarea> -->
+          <textarea name="status" #status="ngModel" rows="5" [(ngModel)]="formData.status" placeholder="status" class="form-control" required>
+          </textarea>
+          <div class="validation-error" *ngIf="status.invalid && status.touched">This field is required.</div>
+
+        </div>
+
+        <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+        <button type="submit" [disabled]="form.invalid" class="btn btn-default">SUBMIT</button>
+      </form>
+    </div>
+</div>
+</div>
